@@ -5,14 +5,14 @@ import { connect } from "react-redux";
 import phoneActions from "../redux/phone-actions";
 import { ContactsListItem } from "../ContactsListItem/ContactsListItem";
 
-function ContactsList({ items, deleteContact }) {
+function ContactsList({ contacts, deleteContact }) {
   return (
     <>
-      {!items || items.length === 0 ? (
+      {!contacts || contacts.length === 0 ? (
         <p className="notifications">There are no any contacts...</p>
       ) : (
         <ul className={s.listContacts}>
-          {items.map(({ id, name, number }) => (
+          {contacts.map(({ id, name, number }) => (
             <ContactsListItem
               key={id}
               name={name}
@@ -36,7 +36,7 @@ const getVisibleConatacts = (contacts, filter) => {
 };
 
 const mapStateToProps = (state) => ({
-  items: getVisibleConatacts(state.contacts.items, state.contacts.filter),
+  contacts: getVisibleConatacts(state.contacts.items, state.contacts.filter),
 });
 const mapDispatchProps = (dispatch) => ({
   deleteContact: (id) => dispatch(phoneActions.deleteContact(id)),
